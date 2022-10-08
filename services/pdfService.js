@@ -14,7 +14,7 @@ const uploadPdf = async(file) => {
     if(!file){
         return {
             ok: false,
-            message: "No se encontro un archivo para subir",
+            message: "No se encontro un archivo para subir pdf",
             data: null
         }
     }

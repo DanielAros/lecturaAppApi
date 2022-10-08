@@ -2,9 +2,24 @@ const path = require('path');
 const fs = require('fs');
 const util = require('util');
 
+const { Cuento } = require('../models');
+const {subirImagen, subirPdf, subirAudio} = require('../helpers/subirArchivos')
+
 //Obtiene y devuelve todos los cuentos de la base de datos.
-const cuentosGet = (req, res) => {
-    res.json('Get Usuarios');
+const cuentosGet = async(req, res) => {
+    try{
+        const cuento = await Cuento.findAll();
+
+        res.status(200).json({
+            ok: true,
+            data: cuento
+        })
+    }catch(err){
+        res.status(500).json({
+            ok: false,
+            message: 'Internal Server error'
+        })
+    }
 }
 
 const cuentosGetAudio = (req, res) => {
@@ -23,11 +38,30 @@ const cuentosGetAudio = (req, res) => {
 
 
 //Registro de un cuento
-const cuentosPost = (req, res) => {
-    // console.log(req);
-    res.json({
-        msg: req.body
-    })
+const cuentosPost = async(req, res) => {
+    try{
+        const data = req.body;
+
+        console.log(data);
+
+        data.imagenCuento = await subirImagen(req.files?.imagenCuento);
+        data.pdfCuento = await subirPdf(req.files?.pdfCuento);
+        data.audioCuento = await subirAudio(req.files?.audioCuento);
+
+        const cuento = await Cuento.create(data);
+
+        return res.status(200).json({
+            ok: true,
+            message: "Cuento almacenado correctamente",
+            data: cuento
+        });
+
+    }catch(err){
+        return res.status(500).json({
+            ok: false,
+            message: 'Internal server error',
+        });
+    }
 }
 
 module.exports = {

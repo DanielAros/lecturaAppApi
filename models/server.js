@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const expressFileUpload = require('express-fileupload');
 
 const {db} = require('../config/database');
 
@@ -36,7 +37,9 @@ class Server {
         
         this.app.use(express.urlencoded({ extended: true }));
 
-        this.app.use(multer().any());
+        // this.app.use(multer().any());
+
+        this.app.use(expressFileUpload());
 
     }
 
