@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
+
 const {db} = require('../config/database');
 
 class Server {
@@ -26,12 +28,16 @@ class Server {
     }
 
     middlewares(){
-
         //cors
         this.app.use(cors());
-
+        
         //Lectura y parseo del body
         this.app.use(express.json());
+        
+        this.app.use(express.urlencoded({ extended: true }));
+
+        this.app.use(multer().any());
+
     }
 
     routes(){

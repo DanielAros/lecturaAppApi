@@ -21,7 +21,17 @@ const cuentosGetAudio = (req, res) => {
     readStream.pipe(res);
 }
 
+
+//Registro de un cuento
+const cuentosPost = (req, res) => {
+    // console.log(req);
+    res.json({
+        msg: req.body
+    })
+}
+
 module.exports = {
     cuentosGet,
-    cuentosGetAudio
+    cuentosGetAudio,
+    cuentosPost
 }
