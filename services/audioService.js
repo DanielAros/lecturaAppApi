@@ -60,7 +60,7 @@ const uploadAudio = async(file) => {
 }
 
 //Funcion para obtener el audio guardado en el servidor
-const getAudio = (fileName) => {
+const getAudioService = (fileName) => {
     const pathAudio = path.join(__dirname, `../uploads/audio/${fileName}`);
 
     return {
@@ -72,5 +72,5 @@ const getAudio = (fileName) => {
 
 module.exports = {
     uploadAudio,
-    getAudio
+    getAudioService
 }

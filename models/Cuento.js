@@ -2,7 +2,7 @@ const Sequilize = require('sequelize');
 const { db } = require('../config/database');
 
 const Cuento = db.define('cuento', {
-    cuentoId: {
+    idCuento: {
         type: Sequilize.INTEGER,
         primaryKey: true,
         autoIncrement: true

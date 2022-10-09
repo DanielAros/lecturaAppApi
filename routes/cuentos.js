@@ -1,11 +1,11 @@
 const { Router } = require('express');
 
-const { cuentosGet, cuentosGetAudio, cuentosPost } = require('../controllers/cuentos');
+const { getCuentos, getCuento, postCuento } = require('../controllers/cuentos');
 
 const router = Router();
 
-router.get('/', cuentosGet);
-router.get('/:id', cuentosGetAudio);
-router.post('/', cuentosPost);
+router.get('/', getCuentos);
+router.get('/:idCuento', getCuento);
+router.post('/', postCuento);
 
 module.exports = router;
