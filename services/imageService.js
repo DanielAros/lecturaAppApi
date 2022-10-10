@@ -60,7 +60,7 @@ const uploadImage = async(file) => {
 }
 
 //Funcion para obtener una imagen guardada en el servidor
-const getImage = (fileName) => {
+const getImageService = (fileName) => {
     const pathImage = path.join(__dirname, `../uploads/img/${fileName}`);
 
     return {
@@ -73,5 +73,5 @@ const getImage = (fileName) => {
 
 module.exports = {
     uploadImage,
-    getImage
+    getImageService
 }

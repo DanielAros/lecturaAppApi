@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-const { Cuento } = require('../models');
-
 const { getAudioService } = require('../services/audioService');
+const { getImageService } = require('../services/imageService');
+const { getPdfService } = require('../services/pdfService');
 
 const getAudio = async(req, res) => {
     try{
@@ -31,11 +31,50 @@ const getAudio = async(req, res) => {
 }
 
 const getPdf = async(req, res) => {
-    res.status(200).json('getPdf');
+    // res.status(200).json('getPdf');
+    try{
+        const { fileName } = req.params;
+        console.log(fileName);
+        const response = await getPdfService(fileName);
+        const filePath = response.data;
+
+        res.sendFile(filePath, (err) => {
+            if(err){
+                res.status(400).json({
+                    ok: false,
+                    message: 'Archivo no encontrado'
+                })
+            }
+        });
+
+    }catch(err){
+        res.status(500).json({
+            ok: false,
+            message: 'Internal server error'
+        })
+    }
 }
 
 const getImg = async(req, res) => {
-    res.status(200).json('getImg');
+    try{
+        const { fileName } = req.params;
+        const response = await getImageService(fileName);
+
+        const filePath = response.data;
+        res.sendFile(filePath, (err) => {
+            if(err){
+                res.status(400).json({
+                    ok: false,
+                    message: 'Archivo no encontrado'
+                })
+            }
+        });
+    }catch(err){
+        res.status(500).json({
+            ok: false,
+            message: 'Internal server error'
+        })
+    }
 }
 
 module.exports = {

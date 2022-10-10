@@ -60,7 +60,7 @@ const uploadPdf = async(file) => {
 }
 
 //Funcion para obtener el pdf guardado en el servidor
-const getPdf = (fileName) => {
+const getPdfService = (fileName) => {
     const pathAudio = path.join(__dirname, `../uploads/pdf/${fileName}`);
 
     return {
@@ -72,5 +72,5 @@ const getPdf = (fileName) => {
 
 module.exports = {
     uploadPdf,
-    getPdf
+    getPdfService
 }

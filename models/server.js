@@ -12,7 +12,8 @@ class Server {
 
         this.paths = {
             cuentos: '/api/cuentos',
-            multimedia: '/api/multimedia'
+            multimedia: '/api/multimedia',
+            usuarios: '/api/usuarios'
         }
 
         //Conectar a la base de datos
@@ -47,6 +48,7 @@ class Server {
     routes(){
         this.app.use(this.paths.cuentos, require('../routes/cuentos'));
         this.app.use(this.paths.multimedia, require('../routes/multimedia'));
+        this.app.use(this.paths.usuarios, require('../routes/usuarios'));
     }
 
     listen(){
