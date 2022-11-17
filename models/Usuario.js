@@ -1,7 +1,7 @@
 const Sequilize = require('sequelize');
 const {db} = require('../config/database');
 
-const Usuario = db.define('usuario', {
+const Usuario = db.define('usuarios', {
     idUsuario: {
         type: Sequilize.INTEGER,
         primaryKey: true,
