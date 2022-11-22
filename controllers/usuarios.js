@@ -21,13 +21,13 @@ const postUsuario = async (req, res) => {
         if (data.nombreUsuario && data.password && data.apellidosUsuario && data.correoElectronico){
             console.log(data);
 
-        const usuario = await Usuario.create(data);
+            const usuario = await Usuario.create(data);
 
-        return res.status(200).json({
-            ok: true,
-            message: "Usuario almacenado correctamente",
-            data: usuario
-        });
+            return res.status(200).json({
+                ok: true,
+                message: "Usuario almacenado correctamente",
+                data: usuario
+            });
         }
 
         return res.status(500).json({
