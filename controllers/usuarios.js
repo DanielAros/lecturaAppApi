@@ -1,4 +1,5 @@
 const Usuario = require('../models/Usuario');
+const { encrypt } = require('../helpers/handleBcrypt');
 
 
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -23,6 +24,8 @@ const postUsuario = async (req, res) => {
         if (data.nombreUsuario && data.password && data.apellidosUsuario && data.correoElectronico){
             console.log(data);
             if(data.correoElectronico.match(mailformat)){
+                
+                data.password = await encrypt(data.password);
                 const usuario = await Usuario.create(data);
 
                 return res.status(200).json({
@@ -50,6 +53,8 @@ const postUsuario = async (req, res) => {
         });
     }
 }
+
+
 
 module.exports = {
     getUsuario, 
