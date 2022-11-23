@@ -1,5 +1,8 @@
 const Usuario = require('../models/Usuario');
+const { encrypt } = require('../helpers/handleBcrypt');
 
+
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const getUsuarios = async (req, res) => {
     // const query = await db.query("SELECT * FROM usuarios");
     const query = await Usuario.findAll();
@@ -20,14 +23,22 @@ const postUsuario = async (req, res) => {
         const data = req.body;
         if (data.nombreUsuario && data.password && data.apellidosUsuario && data.correoElectronico){
             console.log(data);
+            if(data.correoElectronico.match(mailformat)){
+                
+                data.password = await encrypt(data.password);
+                const usuario = await Usuario.create(data);
 
-            const usuario = await Usuario.create(data);
-
-            return res.status(200).json({
-                ok: true,
-                message: "Usuario almacenado correctamente",
-                data: usuario
-            });
+                return res.status(200).json({
+                    ok: true,
+                    message: "Usuario almacenado correctamente",
+                    data: usuario
+                });
+            }else{
+                return res.status(200).json({
+                    ok: false,
+                    message: 'Correo electronico mal escrito'
+                });
+            }
         }
 
         return res.status(500).json({
@@ -42,6 +53,8 @@ const postUsuario = async (req, res) => {
         });
     }
 }
+
+
 
 module.exports = {
     getUsuario, 

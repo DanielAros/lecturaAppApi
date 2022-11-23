@@ -8,7 +8,7 @@ const Usuario = db.define('usuarios', {
         autoIncrement: true
     },
     nombreUsuario: {type: Sequilize.STRING(32), allowNull: false},
-    password: {type: Sequilize.STRING(32), allowNull: false},
+    password: {type: Sequilize.STRING(60), allowNull: false},
     apellidosUsuario: {type: Sequilize.STRING(32), allowNull: false},
     correoElectronico: {type: Sequilize.STRING(32), allowNull: false},
 });
