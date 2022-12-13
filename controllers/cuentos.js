@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const util = require('util');
 
-const { Cuento } = require('../models');
+const { Cuento, Pregunta } = require('../models');
 const {subirImagen, subirPdf, subirAudio} = require('../helpers/subirArchivos')
 
 //Obtiene y devuelve todos los cuentos de la base de datos.
@@ -26,7 +26,7 @@ const getCuentos = async(req, res) => {
 //obtiene los datos de un cuento
 const getCuento = async(req, res) => {
     const {idCuento} = req.params;
-    console.log(req);
+    console.log('AQUI');
     const cuento = await Cuento.findOne({where: {idCuento}});
 
     res.json({
@@ -60,8 +60,6 @@ const postCuento = async(req, res) => {
     try{
         const data = req.body;
 
-        console.log(data);
-
         data.imagenCuento = await subirImagen(req.files?.imagenCuento);
         data.pdfCuento = await subirPdf(req.files?.pdfCuento);
         data.audioCuento = await subirAudio(req.files?.audioCuento);
@@ -73,8 +71,8 @@ const postCuento = async(req, res) => {
             message: "Cuento almacenado correctamente",
             data: cuento
         });
-
     }catch(err){
+        console.log(err)
         return res.status(500).json({
             ok: false,
             message: 'Internal server error',
@@ -85,5 +83,5 @@ const postCuento = async(req, res) => {
 module.exports = {
     getCuentos,
     getCuento,
-    postCuento
+    postCuento,
 }

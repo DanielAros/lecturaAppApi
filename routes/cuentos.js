@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { getCuentos, getCuento, postCuento } = require('../controllers/cuentos');
+const { getCuentos, getCuento, postCuento, postPregunta, getPreguntas } = require('../controllers/cuentos');
 
 const router = Router();
 
